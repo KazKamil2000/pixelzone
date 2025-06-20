@@ -3,27 +3,18 @@ import Navbar from './components/Navbar';
 import About from './pages/About';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
-  
-  let Page: React.ComponentType = () => <div>Page not found</div>;
-  switch (window.location.pathname) {
-    case '/':
-      Page = Home;
-      break;
-    case '/about':
-      Page = About;
-      break;
-    case '/profile':
-      Page = Profile;
-      break;
-  
-  }
-  return (
+ return (
     <>
     <Navbar />
     <div className="MainContainer">      
-      <Page />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </div>
     </>
   );

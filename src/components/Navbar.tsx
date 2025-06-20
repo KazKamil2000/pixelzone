@@ -1,12 +1,32 @@
+import { Link, useMatch, useResolvedPath } from 'react-router-dom';
+
 export default function Navbar() {
   return (
     <nav className="navbar">
-      <a href="/" className="navbar-brand">PixelZone</a>
+      <Link to="/" className="navbar-brand">PixelZone</Link>
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/profile">Profile</a></li>
+        <Navigation to="/">Home</Navigation>
+        <Navigation to="/profile">Profile</Navigation>
+        <Navigation to="/about">About</Navigation>
       </ul>
     </nav>
   );
+}
+
+
+type NavigationProps = {
+  to: string;
+  children: React.ReactNode;
+  [key: string]: any;
+};
+
+function Navigation({ to, children, ...props }: NavigationProps) {
+   const resolvedPath = useResolvedPath(to)
+   const isActive = useMatch({ path: resolvedPath.pathname, end: true })
+
+   return (
+    <li className={isActive ? 'active' : ''}>
+      <Link to={to} {...props}>{children}</Link>
+    </li>
+   )
 }
