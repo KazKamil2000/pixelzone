@@ -1,3 +1,4 @@
+/*body*/
 * {
   box-sizing: border-box;
 }
@@ -13,6 +14,8 @@ body {
   align-items: center;
   margin: 1rem;
 }
+
+/*navbar*/
 
 .navbar {
   background-color: #333;
@@ -53,6 +56,8 @@ body {
 .navbar li:hover {
   background-color: #777;
 }
+
+/*footer*/
 
 .footer {
   background-color: #333;
