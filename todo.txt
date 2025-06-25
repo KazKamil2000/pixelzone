@@ -1,3 +1,10 @@
-1. Game Card - Stworzyć kartę na gry (zobaczyć na necie)
-2. Pobawić się w kolorki
-3. Zrobić boiler profilu
+1. Strona główna
+  - nazwa strony
+  - wyszukiwarka 
+  - widaomo dodanie napisów co jest co (jedno że upcoming games drugie że free games)
+  - stworzyć component "main-page-cart" (karta na nadchodzące gry i na darmowe gry ten sam component)
+  - footer (tutaj dodał bym jakieś linki ktore beda odnosic nigdzie ale docelowo bedzie to) 
+    - o nas 
+    - regaulamin
+    - jakieś prawa autorskie 
+
