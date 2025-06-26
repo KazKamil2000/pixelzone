@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { fetchData } from "../data/FetchData";
 import Grid from "@mui/material/Grid";
 import { Pagination } from "@mui/material";
+import { Link } from "react-router-dom";
 
 type Game = {
   id: number;
@@ -58,26 +59,32 @@ const CardData = () => {
       <Grid container spacing={3} maxWidth="lg" justifyContent={"center"}>
         {currentGames.map((game) => (
           <Grid key={game.id}>
-            <Card
-              sx={{
-                width: 345,
-                height: 380,
-              }}
+            <Link
+              to={`/game/${game.id}`}
+              style={{ textDecoration: "none", color: "inherit" }}
             >
-              <CardMedia
-                sx={{ height: 200, width: "100%" }}
-                image={game.thumbnail}
-                title={game.title}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {game.title}
-                </Typography>
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  {game.short_description}
-                </Typography>
-              </CardContent>
-            </Card>
+              <Card
+                sx={{
+                  width: 345,
+                  height: 380,
+                  cursor: "pointer",
+                }}
+              >
+                <CardMedia
+                  sx={{ height: 200, width: "100%" }}
+                  image={game.thumbnail}
+                  title={game.title}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {game.title}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                    {game.short_description}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
         ))}
       </Grid>
