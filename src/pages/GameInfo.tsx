@@ -1,39 +1,25 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  Container,
   Typography,
   Card,
   CardMedia,
-  CardContent,
+  Box,
   CircularProgress,
 } from "@mui/material";
-
-type GameDetails = {
-  id: number;
-  title: string;
-  thumbnail: string;
-  description: string;
-  genre: string;
-  platform: string;
-  developer: string;
-  publisher: string;
-  release_date: string;
-};
+import { useState, useEffect } from "react";
+import Carousel from "../components/Carousel";
 
 const GameInfo = () => {
   const { id } = useParams();
-  const [game, setGame] = useState<GameDetails | null>(null);
+  const [game, setGame] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchGame = async () => {
       try {
-        console.log("ID z URL:", id);
         const response = await fetch(`/api/api/game?id=${id}`);
-        const data = await response.json();
-        console.log("Dane z API:", data);
-        setGame(data);
+        const result = await response.json();
+        setGame(result);
       } catch (err) {
         console.error("Błąd ładowania gry:", err);
       } finally {
@@ -44,28 +30,81 @@ const GameInfo = () => {
     fetchGame();
   }, [id]);
 
-  if (loading) return <CircularProgress />;
-  if (!game) return <p>Nie znaleziono gry</p>;
+  if (loading)
+    return <CircularProgress sx={{ mt: 10, mx: "auto", display: "block" }} />;
+  if (!game) return <Typography variant="h5">Nie znaleziono gry</Typography>;
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Card>
-        <CardMedia component="img" image={game.thumbnail} alt={game.title} />
-        <CardContent>
-          <Typography variant="h4">{game.title}</Typography>
-          <Typography variant="body1" sx={{ mt: 2 }}>
-            {game.description}
+    <Box sx={{ padding: 6 }}>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", md: "1fr 2fr" },
+          gap: 4,
+          alignItems: "start",
+          mb: 6,
+        }}
+      >
+        <Card>
+          <CardMedia
+            component="img"
+            height="300"
+            image={game.thumbnail}
+            alt={game.title}
+          />
+        </Card>
+
+        <Box>
+          <Typography variant="h4" gutterBottom>
+            {game.title}
           </Typography>
-          <Typography variant="body2" sx={{ mt: 2 }}>
-            <strong>Gatunek:</strong> {game.genre} <br />
-            <strong>Platforma:</strong> {game.platform} <br />
-            <strong>Deweloper:</strong> {game.developer} <br />
-            <strong>Wydawca:</strong> {game.publisher} <br />
-            <strong>Data wydania:</strong> {game.release_date}
+          <Typography variant="body1">{game.description}</Typography>
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+          gap: 4,
+          alignItems: "start",
+        }}
+      >
+        <Box>
+          <Typography variant="h6" gutterBottom sx={{ textAlign: "center" }}>
+            Galeria gry
           </Typography>
-        </CardContent>
-      </Card>
-    </Container>
+          {game.screenshots?.length > 0 ? (
+            <Carousel
+              images={game.screenshots.map((s: { image: any }) => s.image)}
+            />
+          ) : (
+            <Typography variant="body2">Brak screenshotów</Typography>
+          )}
+        </Box>
+
+        <Box>
+          <Typography variant="h4" gutterBottom sx={{ textAlign: "center" }}>
+            Szczegóły gry
+          </Typography>
+          <Typography variant="h6" sx={{ textAlign: "center" }}>
+            <b>Wydawca:</b> {game.publisher}
+          </Typography>
+          <Typography variant="h6" sx={{ textAlign: "center" }}>
+            <b>Developer:</b> {game.developer}
+          </Typography>
+          <Typography variant="h6" sx={{ textAlign: "center" }}>
+            <b>Gatunek:</b> {game.genre}
+          </Typography>
+          <Typography variant="h6" sx={{ textAlign: "center" }}>
+            <b>Platforma:</b> {game.platform}
+          </Typography>
+          <Typography variant="h6" sx={{ textAlign: "center" }}>
+            <b>Data wydania:</b> {game.release_date}
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
