@@ -5,9 +5,11 @@ import {
   CardMedia,
   Box,
   CircularProgress,
+  Divider,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import Carousel from "../components/Carousel";
+import Rating from "@mui/material/Rating";
 
 const GameInfo = () => {
   const { id } = useParams();
@@ -40,8 +42,9 @@ const GameInfo = () => {
         sx={{
           display: "grid",
           gridTemplateColumns: { xs: "1fr", md: "1fr 2fr" },
-          gap: 4,
-          alignItems: "start",
+          gap: 6,
+          alignItems: "center",
+          justifyContent: "center",
           mb: 6,
         }}
       >
@@ -62,6 +65,8 @@ const GameInfo = () => {
         </Box>
       </Box>
 
+      <Divider sx={{ mb: 6 }} />
+
       <Box
         sx={{
           display: "grid",
@@ -71,7 +76,7 @@ const GameInfo = () => {
         }}
       >
         <Box>
-          <Typography variant="h6" gutterBottom sx={{ textAlign: "center" }}>
+          <Typography variant="h4" gutterBottom sx={{ textAlign: "center" }}>
             Galeria gry
           </Typography>
           {game.screenshots?.length > 0 ? (
@@ -102,6 +107,9 @@ const GameInfo = () => {
           <Typography variant="h6" sx={{ textAlign: "center" }}>
             <b>Data wydania:</b> {game.release_date}
           </Typography>
+          <Box display="flex" justifyContent="center" mt={3}>
+            <Rating name="size-large" defaultValue={3} size="large" />
+          </Box>
         </Box>
       </Box>
     </Box>

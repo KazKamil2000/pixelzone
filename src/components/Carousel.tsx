@@ -28,7 +28,6 @@ const Carousel = ({ images }: CarouselProps) => {
         alt={`Obraz ${currentIndex + 1}`}
         sx={{
           width: "100%",
-          maxWidth: "500px",
           height: "auto",
           borderRadius: 2,
           boxShadow: 3,

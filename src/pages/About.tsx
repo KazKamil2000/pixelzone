@@ -54,14 +54,21 @@ const About = () => {
 
       <Grid container spacing={4} justifyContent="center">
         {teamMembers.map((member, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card sx={{ height: "100%", textAlign: "center", p: 2 }}>
+          <Grid key={index}>
+            <Card
+              sx={{
+                height: "100%",
+                width: 800,
+                textAlign: "center",
+                p: 2,
+              }}
+            >
               <Avatar
                 alt={member.name}
                 src={member.avatar}
                 sx={{ width: 100, height: 100, mx: "auto", mb: 2 }}
               />
-              <CardContent>
+              <CardContent sx={{ flexGrow: 1 }}>
                 <Typography variant="h6" gutterBottom>
                   {member.name}
                 </Typography>
@@ -81,7 +88,7 @@ const About = () => {
         ))}
       </Grid>
 
-      <Box sx={{ textAlign: "center", mt: 8 }}>
+      <Box sx={{ textAlign: "center", mt: 8, mb: 4 }}>
         <Typography variant="h5" gutterBottom>
           Nasza misja
         </Typography>
