@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Typography, Paper } from "@mui/material";
 import { useState } from "react";
+import axios from "axios";
 
 const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -9,14 +10,27 @@ const LoginForm = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (isLogin) {
-      console.log("Logging in with:", form);
-      // TODO: call login API
-    } else {
-      console.log("Registering with:", form);
-      // TODO: call register API
+    const endpoint = isLogin ? "/login" : "/register";
+
+    try {
+      const res = await axios.post(
+        `http://localhost:8080/api/auth${endpoint}`,
+        form
+      );
+      if (isLogin) {
+        setLoggedIn(true);
+      } else {
+        alert("Zarejestrowano! Teraz się zaloguj.");
+        setIsLogin(true);
+      }
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        alert(err.response?.data || "Błąd logowania");
+      } else {
+        alert("Błąd logowania");
+      }
     }
   };
 
@@ -74,3 +88,6 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+function setLoggedIn(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}

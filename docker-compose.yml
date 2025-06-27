@@ -1,15 +1,38 @@
-version: "3.1"
+version: "3.8"
+
 services:
-  postgres:
+  postgres-auth:
     image: postgres:15
     container_name: postgres-auth
     environment:
+      POSTGRES_DB: auth_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: auth_db
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - auth-network
+
+  auth-backend:
+    build:
+      context: ./Backend
+    container_name: auth-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-auth:5432/auth_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    depends_on:
+      - postgres-auth
+    networks:
+      - auth-network
+
 volumes:
   pgdata:
+
+networks:
+  auth-network:
+    driver: bridge
