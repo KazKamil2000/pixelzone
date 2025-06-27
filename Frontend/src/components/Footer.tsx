@@ -23,7 +23,7 @@ export default function Footer() {
         </p>
         <p>
           <a href="/privacy-policy">Privacy Policy</a> |{" "}
-          <a href="/terms-of-service">Terms of Service</a>
+          <a href="/About">About us</a>
         </p>
       </div>
     </footer>

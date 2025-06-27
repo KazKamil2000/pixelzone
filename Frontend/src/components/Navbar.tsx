@@ -7,9 +7,8 @@ export default function Navbar() {
         PixelZone
       </Link>
       <ul>
-        <Navigation to="/">Home</Navigation>
+        <Navigation to="/home">Home</Navigation>
         <Navigation to="/profile">Profile</Navigation>
-        <Navigation to="/about">About</Navigation>
       </ul>
     </nav>
   );
