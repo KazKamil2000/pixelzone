@@ -1,12 +1,19 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { useEffect, useState } from "react";
-import { fetchData } from "../data/FetchData";
-import Grid from "@mui/material/Grid";
-import { Pagination } from "@mui/material";
+// src/components/CardData.tsx
+import React, { useEffect, useState } from "react";
+import {
+  Container,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Pagination,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
+import { fetchData } from "../data/FetchData";
 
 type Game = {
   id: number;
@@ -17,85 +24,111 @@ type Game = {
   platform: string;
 };
 
-const CardData = () => {
+const CardData: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 18;
 
   useEffect(() => {
-    const loadGames = async () => {
-      try {
-        const data = await fetchData();
-        setGames(data);
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadGames();
+    fetchData()
+      .then((data) => setGames(data))
+      .catch((e) => setError(e.message))
+      .finally(() => setLoading(false));
   }, []);
 
+  if (loading) return <Typography>Ładowanie danych…</Typography>;
+  if (error) return <Typography color="error">Błąd: {error}</Typography>;
+
+  // 1) filtr po searchTerm
+  const filtered = games.filter((g) =>
+    g.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // 2) paginacja po przefiltrowanej tablicy
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentGames = games.slice(indexOfFirstItem, indexOfLastItem);
+  const currentGames = filtered.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handlePageChange = (
-    _event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
+  const handlePageChange = (_: any, value: number) => {
     setCurrentPage(value);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  if (loading) return <p>Ładowanie danych...</p>;
-  if (error) return <p>Błąd: {error}</p>;
-
   return (
-    <>
-      <Grid container spacing={3} maxWidth="lg" justifyContent={"center"}>
+    <Container maxWidth="lg" sx={{ mt: 4 }}>
+      {/* Search Bar */}
+      <TextField
+        fullWidth
+        placeholder="Szukaj gier..."
+        value={searchTerm}
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+          setCurrentPage(1);
+        }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+        sx={{ mb: 4 }}
+      />
+
+      <Grid container spacing={3} maxWidth="lg" justifyContent="center">
         {currentGames.map((game) => (
           <Grid key={game.id}>
-            <Link
-              to={`/game/${game.id}`}
-              style={{ textDecoration: "none", color: "inherit" }}
+            <Card
+              sx={{ height: "100%", display: "flex", flexDirection: "column" }}
             >
-              <Card
-                sx={{
-                  width: 345,
-                  height: 380,
-                  cursor: "pointer",
-                }}
+              <Link
+                to={`/game/${game.id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
               >
-                <CardMedia
-                  sx={{ height: 200, width: "100%" }}
-                  image={game.thumbnail}
-                  title={game.title}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {game.title}
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    {game.short_description}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Link>
+                <Card
+                  sx={{
+                    width: 345,
+                    height: 380,
+                    cursor: "pointer",
+                  }}
+                >
+                  <CardMedia
+                    sx={{ height: 200, width: "100%" }}
+                    image={game.thumbnail}
+                    title={game.title}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {game.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                    >
+                      {game.short_description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Link>
+            </Card>
           </Grid>
         ))}
       </Grid>
-      <Pagination
-        count={Math.ceil(games.length / itemsPerPage)}
-        page={currentPage}
-        onChange={handlePageChange}
-        color="primary"
-        sx={{ display: "flex", justifyContent: "center", mt: 4 }}
-      />
-    </>
+
+      {filtered.length > itemsPerPage && (
+        <Pagination
+          count={Math.ceil(filtered.length / itemsPerPage)}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+          sx={{ display: "flex", justifyContent: "center", mt: 4 }}
+        />
+      )}
+    </Container>
   );
 };
 

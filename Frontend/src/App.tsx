@@ -34,14 +34,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route
-              path="/about"
-              element={
-                <PrivateRoute>
-                  <About />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/about" element={<About />} />
             <Route
               path="/game/:id"
               element={

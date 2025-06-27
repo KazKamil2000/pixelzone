@@ -11,19 +11,19 @@ import Grid from "@mui/material/Grid";
 
 const teamMembers = [
   {
-    name: "Anna Kowalska",
-    role: "CEO & Founder",
-    bio: "Założycielka PixelZone z ponad 10-letnim doświadczeniem w branży gier. Pasjonatka innowacji i nowych technologii.",
+    name: "Kamil Kaźmierczak",
+    role: "Frontend Developer",
+    bio: "Frontend developer PixelZone z ponad 10-letnim doświadczeniem w graniu w gry. Pasjonat innowacji i nowych technologii.",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
   },
   {
-    name: "Tomasz Nowak",
-    role: "CTO",
-    bio: "Ekspert w dziedzinie AI oraz backend developmentu. Uwielbia automatyzację i optymalizację kodu.",
+    name: "Olivier Kwiatkowski",
+    role: "Backend Developer",
+    bio: "Ekspert backend developmentu. Uwielbia automatyzację i optymalizację kodu.",
     avatar: "https://randomuser.me/api/portraits/men/46.jpg",
   },
   {
-    name: "Marta Wójcik",
+    name: "Maciej",
     role: "Lead Designer",
     bio: "Odpowiada za wizualną stronę PixelZone. Kocha minimalizm, estetykę i design użytkowy.",
     avatar: "https://randomuser.me/api/portraits/women/68.jpg",
@@ -58,7 +58,7 @@ const About = () => {
             <Card
               sx={{
                 height: "100%",
-                width: 800,
+                width: 300,
                 textAlign: "center",
                 p: 2,
               }}
