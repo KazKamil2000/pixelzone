@@ -8,31 +8,42 @@ import {
   Container,
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
+import kamImg from "../assets/kam.png";
+import oliImg from "../assets/oli.jpg";
+import macImg from "../assets/mac.jpg";
 
 const teamMembers = [
   {
     name: "Kamil Kaźmierczak",
     role: "Frontend Developer",
     bio: "Frontend developer PixelZone z ponad 10-letnim doświadczeniem w graniu w gry. Pasjonat innowacji i nowych technologii.",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    avatar: kamImg,
   },
   {
     name: "Olivier Kwiatkowski",
     role: "Backend Developer",
     bio: "Ekspert backend developmentu. Uwielbia automatyzację i optymalizację kodu.",
-    avatar: "https://randomuser.me/api/portraits/men/46.jpg",
+    avatar: oliImg,
   },
   {
-    name: "Maciej",
+    name: "Maciej Matysek",
     role: "Lead Designer",
     bio: "Odpowiada za wizualną stronę PixelZone. Kocha minimalizm, estetykę i design użytkowy.",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+    avatar: macImg,
   },
 ];
 
 const About = () => {
   return (
-    <Container maxWidth="lg">
+    <Container
+      maxWidth="lg"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Box sx={{ textAlign: "center", my: 6 }}>
         <Typography variant="h3" gutterBottom>
           O nas

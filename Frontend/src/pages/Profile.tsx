@@ -35,10 +35,8 @@ const Profile = () => {
     }
   };
 
-  console.log("User data:", user);
-
   return (
-    <Box sx={{ p: 4, maxWidth: 600, mx: "auto" }}>
+    <Box sx={{ p: 4, maxWidth: 600, mx: "auto", height: "70vh", mt: 10 }}>
       <Typography variant="h4" gutterBottom>
         Profil użytkownika
       </Typography>

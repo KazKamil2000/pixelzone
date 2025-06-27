@@ -18,7 +18,7 @@ body {
 /*navbar*/
 
 .navbar {
-  background-color: #333;
+  background-color: #a07cff;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -52,6 +52,8 @@ body {
 
 .navbar li.active {
   background-color: #555;
+  translate: translateY(-2px);
+  transition: background-color 1s ease, transform 1s ease;
 }
 
 .navbar li:hover {
@@ -61,12 +63,13 @@ body {
 /*footer*/
 
 .footer {
-  background-color: #333;
+  background-color: #a07cff;
   color: white;
   text-align: center;
   padding: 1rem;
   bottom: 0;
   width: 100%;
+  margin-top: 1rem;
 }
 .footer a {
   color: inherit;
