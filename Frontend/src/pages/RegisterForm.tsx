@@ -10,27 +10,27 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 
-export default function LoginForm() {
+export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
-      await axios.post("http://localhost:8080/api/auth/login", {
+      await axios.post("http://localhost:8080/api/auth/register", {
         email,
         password,
       });
-      navigate("/home");
+      navigate("/login");
     } catch (error) {
-      alert("Invalid credentials");
+      alert("Registration failed");
     }
   };
 
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" gutterBottom>
-        Login
+        Register
       </Typography>
       <TextField
         fullWidth
@@ -47,15 +47,15 @@ export default function LoginForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button variant="contained" fullWidth onClick={handleLogin}>
-        Login
+      <Button variant="contained" fullWidth onClick={handleRegister}>
+        Register
       </Button>
 
       <Box mt={2}>
         <Typography variant="body2">
-          Nie masz jeszcze konta?{" "}
-          <Link component={RouterLink} to="/register">
-            Kliknij tutaj aby się zarejestrować
+          Masz już konto?{" "}
+          <Link component={RouterLink} to="/login">
+            Zaloguj się
           </Link>
         </Typography>
       </Box>

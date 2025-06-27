@@ -7,6 +7,7 @@ import GameInfo from "./pages/GameInfo";
 import Profile from "./pages/Profile";
 import { Route, Routes } from "react-router-dom";
 import LoginForm from "./pages/LoginForm";
+import RegisterForm from "./pages/RegisterForm";
 
 function App() {
   return (
@@ -14,11 +15,12 @@ function App() {
       <Navbar />
       <div className="MainContainer">
         <Routes>
-          <Route path="/" element={<LoginForm />} />
+          <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/about" element={<About />} />
           <Route path="/game/:id" element={<GameInfo />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
         </Routes>
       </div>
       <Footer />
