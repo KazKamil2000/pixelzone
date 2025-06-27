@@ -9,19 +9,29 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
+import { useAuth } from "../data/AuthContext";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const { login } = useAuth();
+
   const handleLogin = async () => {
     try {
-      await axios.post("http://localhost:8080/api/auth/login", {
-        email,
-        password,
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+      login({
+        email: response.data.email,
+        avatar: localStorage.getItem("avatar") || "",
       });
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       alert("Invalid credentials");
     }

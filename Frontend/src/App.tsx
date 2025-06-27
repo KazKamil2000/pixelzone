@@ -8,22 +8,54 @@ import Profile from "./pages/Profile";
 import { Route, Routes } from "react-router-dom";
 import LoginForm from "./pages/LoginForm";
 import RegisterForm from "./pages/RegisterForm";
+import { AuthProvider } from "./data/AuthContext";
+import { PrivateRoute } from "./components/PrivateRoute";
 
 function App() {
   return (
     <>
-      <Navbar />
-      <div className="MainContainer">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/game/:id" element={<GameInfo />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<RegisterForm />} />
-        </Routes>
-      </div>
-      <Footer />
+      <AuthProvider>
+        <div className="MainContainer">
+          <Navbar />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <PrivateRoute>
+                  <About />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/game/:id"
+              element={
+                <PrivateRoute>
+                  <GameInfo />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterForm />} />
+          </Routes>
+          <Footer />
+        </div>
+      </AuthProvider>
     </>
   );
 }

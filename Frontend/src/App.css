@@ -13,7 +13,6 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin: 1rem;
 }
 
 /*navbar*/
@@ -26,6 +25,7 @@ body {
   align-items: stretch;
   gap: 2rem;
   padding: 0 1rem;
+  width: 100%;
 }
 
 .navbar-brand {

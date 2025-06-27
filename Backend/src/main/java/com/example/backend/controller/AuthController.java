@@ -8,6 +8,8 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -30,10 +32,14 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User loginData) {
-        Optional<User> userOpt = userRepository.findByEmail(loginData.getEmail());
-        if (userOpt.isEmpty() || !BCrypt.checkpw(loginData.getPassword(), userOpt.get().getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-        }
-        return ResponseEntity.ok("Login successful");
+    Optional<User> userOpt = userRepository.findByEmail(loginData.getEmail());
+
+    if (userOpt.isEmpty() || !BCrypt.checkpw(loginData.getPassword(), userOpt.get().getPassword())) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+    }
+    User user = userOpt.get();
+    Map<String, String> response = new HashMap<>();
+    response.put("email", user.getEmail());
+    return ResponseEntity.ok(response);
     }
 }
