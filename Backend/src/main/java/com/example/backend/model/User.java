@@ -12,7 +12,6 @@ public class User {
     private String email;
     private String password;
 
-    // Gettery i settery
     public Long getId() { return id; }
 
     public String getEmail() { return email; }
