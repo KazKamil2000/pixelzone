@@ -1,4 +1,3 @@
-// src/components/CardData.tsx
 import React, { useEffect, useState } from "react";
 import {
   Container,
@@ -43,12 +42,10 @@ const CardData: React.FC = () => {
   if (loading) return <Typography>Ładowanie danych…</Typography>;
   if (error) return <Typography color="error">Błąd: {error}</Typography>;
 
-  // 1) filtr po searchTerm
   const filtered = games.filter((g) =>
     g.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // 2) paginacja po przefiltrowanej tablicy
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentGames = filtered.slice(indexOfFirstItem, indexOfLastItem);
@@ -60,7 +57,6 @@ const CardData: React.FC = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
-      {/* Search Bar */}
       <TextField
         fullWidth
         placeholder="Szukaj gier..."
