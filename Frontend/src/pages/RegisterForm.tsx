@@ -28,7 +28,16 @@ export default function RegisterForm() {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container
+      maxWidth="sm"
+      sx={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Typography variant="h4" gutterBottom>
         Register
       </Typography>
