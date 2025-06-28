@@ -4,14 +4,14 @@
 
 ## Autorzy
 
-- Kamil Kaźmierczak  
-- Olivier Kwiatkowski  
+- Kamil Kaźmierczak
+- Olivier Kwiatkowski
 - Maciej Matysek
 
 ## Funkcjonalności
 
-- Rejestracja i logowanie  
-- Przeglądanie i wyszukiwanie gier  
+- Rejestracja i logowanie
+- Przeglądanie i wyszukiwanie gier
 - Edycja zdjęcia profilowego
 
 ## Technologie
@@ -31,10 +31,10 @@
    ```bash
    docker-compose up --build
    ```
-   - Frontend: http://localhost:5173  
+   - Frontend: http://localhost:5173
    - Backend: http://localhost:8080
 
-*Alternatywnie:* uruchom Backend (`mvn spring-boot:run`) i Frontend (`npm install && npm run dev`) osobno.
+_Alternatywnie:_ uruchom Backend (`mvn spring-boot:run`) i Frontend (`npm install && npm run dev`) osobno.
 
 ## Struktura
 
